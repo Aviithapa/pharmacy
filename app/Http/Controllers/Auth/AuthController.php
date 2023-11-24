@@ -19,7 +19,7 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
         if (Auth::check()) {
-            if (Auth::user()->status === 1) {
+            if (Auth::user()->status == 1) {
                 if (Auth::user()->mainRole()->name === 'admin') {
                     return redirect()->intended('dashboard');
                 } else {
