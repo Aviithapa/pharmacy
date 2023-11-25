@@ -176,7 +176,16 @@
                                                     <td  class="editables" contenteditable="true" data-field="quantity" data-name="Quantity"  data-id="{{ $salesItem->id }}">{{ $salesItem->quantity}}</td>
                                                     <td data-field="price_per_unit" data-name="Price Per Unit"  data-id="{{ $salesItem->id }}">{{ $salesItem->stock->price_per_unit }}</td>
                                                     <td data-field="total" data-name="Total"  data-id="{{ $salesItem->id }}">{{ $salesItem->total_amount}}</td>
-                                                    <td data-id="{{ $salesItem->id }}"> <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{ $salesItem->id }}"><i class="bi-trash"></i></button></td>
+                                                    <td>
+                                                        <form action="{{ url('/dashboard/sales/' . $salesItem->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            
+                                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?')">
+                                                                <i class="bi bi-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                                 @endforeach
                                                 @endif
@@ -209,30 +218,7 @@
                                     </div>
                                     <!-- end .table-responsive-->
 
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5  id="exampleModalLabel" style="color: red;">Confirm Delete Item</h5>
-                                                        
-                                                    </div>
-                                                    <div class="modal-body" style="padding: 5px 15px;">
-                                                     
-                                                            <div class="mb-3 mt-2" style="height: 50px;">
-                                                                <input type="hidden" class="form-control" id="recipient-name">
-                                                                    <h5>Are you sure you want to remove the item from the list? </h5>
-                                                               </div>
-                                                              <div class="modal-footer" style="padding:0px !important">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                                                
-                                                                <button type="button" class="btn btn-primary delete" onclick="handleDelete()" data-id="">Yes</button>
-                                                          
-                                                            </div>
-                                                    </div>
-                                                  
-                                                </div>
-                                            </div>
-                                        </div>
+                                    
                                 </div>
                                 <!-- end card-body -->
                             </div>

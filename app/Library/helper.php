@@ -152,3 +152,23 @@ if (!function_exists('getSupplierName')) {
             ->first();
     }
 }
+
+
+if (!function_exists('calculateTotal')) {
+    /**
+     * Generates the alias equivalent for the provided string
+     *
+     * @param $string
+     * @return mixed|string
+     */
+    function calculateTotal($data, $name)
+    {
+        $totalQuantity = 0;
+
+        foreach ($data as $item) {
+            $totalQuantity += $item->$name;
+        }
+
+        return $totalQuantity;
+    }
+}

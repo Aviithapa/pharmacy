@@ -99,8 +99,7 @@
                                                             <th>Generic Name</th>
                                                             <th>Quantity</th>
                                                             <th>Remaining Quantity</th>
-                                                            <th>Price Per Unit</th>
-                                                            <th>Expiry Date</th>
+                                                            
                                                             <th>Type</th>
                                                             <th>Category</th>
                                                             <th>Prescription</th>
@@ -115,12 +114,9 @@
                                                             <td>{{ $pageRelativeIndex }}</td>
                                                             <td>{{ $data->name }}</td>
                                                             <td>{{ $data->generic_name }}</td>
-                                                            <td>{{ $data->stock }}</td>
-                                                            <td>{{ $data->stock }}</td>
-                                                              <td>
-                                                               {{ $data->stock }}
-                                                            </td>
-                                                            <td>{{ $data->stock }}</td>
+                                                            <td>{{  calculateTotal($data->stock, 'quantity')}}</td>
+                                                            <td>{{ calculateTotal($data->stock, 'remaining_quantity') }}</td>
+                                                             
                                                             <td>
                                                               {{ $data->type->name }}
                                                             </td>

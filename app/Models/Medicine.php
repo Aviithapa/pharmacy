@@ -45,9 +45,4 @@ class Medicine extends Model
     {
         return $this->hasMany(StockManagement::class, 'medicine_id', 'id');
     }
-
-    public function getStockAttribute()
-    {
-        return $this->stock()->select('quantity', 'remaining_quantity', 'price_per_unit', 'id', 'expiry_date')->where('remaining_quantity', '!=', '0')->first();
-    }
 }

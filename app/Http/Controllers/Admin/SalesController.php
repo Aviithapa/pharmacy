@@ -186,22 +186,15 @@ class SalesController extends Controller
             $medicine->stock()->increment('remaining_quantity', $sales['quantity']);
             $stock = $this->salesItemRepository->delete($id);
             if ($stock == false) {
-                return Response::json([
-                    'status' => 'error',
-                    'message' => 'Oops! Something went wrong.',
-                ]);
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->route('sales.edit', ['sale' => $sales['sales_id']]);
             }
             DB::commit();
-            return Response::json([
-                'status' => 'success',
-                'message' => 'Stock item has been removed successfully.',
-            ]);
+            session()->flash('success', 'Sale has been created successfully.');
+            return redirect()->route('sales.edit', ['sale' => $sales['sales_id']]);
         } catch (Exception $e) {
             DB::rollback();
-            return Response::json([
-                'status' => 'error',
-                'message' => 'Oops! Something went wrong.' . $e,
-            ]);
+            session()->flash('danger', 'Oops! Something went wrong.' . $e);
             return redirect()->back()->withInput();
         }
     }
