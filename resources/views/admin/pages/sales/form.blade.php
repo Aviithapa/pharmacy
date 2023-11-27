@@ -102,7 +102,7 @@
                                                         <input type="text" value="{{  $model->customer->name }}"  class="form-control" name="customer"  disabled />
                                                     @else
                                                        <select class="form-select mb-3" name="customer_id"  required>
-                                                            <option value="{{ isset($model) ? $model->customer_id : '' }}" selected>{{ isset($model) ? getSupplierName($model->customer_id) : 'Search by supplier' }}</option>
+                                                            <option value="{{ isset($model) ? $model->customer_id : '' }}" selected>{{ isset($model) ? getSupplierName($model->customer_id) : 'Search Customer' }}</option>
                                                             @foreach($customers as $customer)
                                                                 <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                                                 @endforeach

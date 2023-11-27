@@ -65,19 +65,20 @@ class SalesController extends Controller
     {
         $data = $request->all();
         $medicine = $this->medicineRepository->findById($data['medicine_id']);
-        $totalQuantity = $medicine->stock->remaining_quantity;
+        $stock = $this->stockRepository->getAll()->where('medicine_id', $data['medicine_id'])->where('remaining_quantity', '!=', 0)->first();
+        $totalQuantity = $stock->remaining_quantity;
         if ($totalQuantity < $data['quantity']) {
             session()->flash('danger', 'Stock is less then the quantity ' . $totalQuantity . ' left only.');
             return redirect()->back()->withInput();
         }
         DB::beginTransaction();
         try {
-            $medicine->stock()->decrement('remaining_quantity', $data['quantity']);
+            $stock->decrement('remaining_quantity', $data['quantity']);
             $data['created_by'] = Auth::user()->id;
             $data['sale_date'] = Carbon::now()->format('Y-m-d');
-            $data['stock_id'] = $medicine->stock->id;
-            $data['amount'] = $medicine->stock->price_per_unit;
-            $data['total_amount'] = $data['quantity'] * $medicine->stock->price_per_unit;
+            $data['stock_id'] = $stock->id;
+            $data['amount'] = $stock->price_per_unit;
+            $data['total_amount'] = $data['quantity'] * $stock->price_per_unit;
             $sales = null;
             if (isset($data['sales_id']))
                 $sales = $this->salesRepository->getAll()->where('id', $data['sales_id'])->first();
