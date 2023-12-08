@@ -67,10 +67,10 @@
             <p>Please use the OTP <span>{{ $otp }}</span> to confirm reset.</p>
             <i>If you think that you shouldn't have received this email, you can safely ignore it.</i>
             </p>
-            <p>Thank You ! <br /><b>Technical Ransaini</b> </p>
+            <p>Thank You ! <br /><b>AEIRC</b> </p>
         </div>
         <div class="footer">
-        <p>© Technical Ransaini. All rights reserved. </p>
+        <p>© AEIRC. All rights reserved. </p>
         <p>If you have any questions please contact us <a href="mailto:info@nepalbarcouncil.org.np">info@nepalbarcouncil.org.np</a> </p>
 
         </div>

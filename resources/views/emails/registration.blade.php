@@ -64,15 +64,15 @@
                 Hi
                 <b>{{$user->name}}</b>,
                 <br />
-            <p>Your account in Technical Ransaini Exam Section has been created.</p>
+            <p>Your account in AEIRC Exam Section has been created.</p>
             <p>Please  use the otp to active your account password <span>{{ $otp }}</span>
             </p>
             <i>If you think that you shouldn't have received this email, you can safely ignore it.</i>
             </p>
-            <p>Thank You ! <br /><b>Technical Ransaini</b> </p>
+            <p>Thank You ! <br /><b>AEIRC</b> </p>
         </div>
         <div class="footer">
-        <p>©Technical Ransaini . All rights reserved. </p>
+        <p>©AEIRC . All rights reserved. </p>
         <p>If you have any questions please contact us 
             {{-- <a href="mailto:{{ company_email }}">{{ company_email }}</a>  --}}
         </p>

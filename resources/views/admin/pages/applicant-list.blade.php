@@ -10,7 +10,7 @@
                                 <div class="page-title-box">
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Technical Ransaini</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">AEIRC</a></li>
                                             <li class="breadcrumb-item"><a href="javascript: void(0);">Applicant List</a></li>
                                         </ol>
                                     </div>

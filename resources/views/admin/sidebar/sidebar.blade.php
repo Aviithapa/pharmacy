@@ -115,7 +115,7 @@
                         </a>
                     </li>
                   
-                    <li class="side-nav-item">
+                    {{-- <li class="side-nav-item">
                         <a
                             data-bs-toggle="collapse"
                             href="#sidebarPages"
@@ -142,7 +142,7 @@
                                 
                                 </ul>
                             </div>
-                     </li>
+                     </li> --}}
 
                       <li class="side-nav-item">
                         <a href="{{ route('medicine-classification.index') }}" class="side-nav-link">
