@@ -28,7 +28,7 @@ class User extends Authenticatable
         'token',
         'position',
         'reference',
-        'status'
+        'status',
     ];
 
     /**
@@ -65,7 +65,32 @@ class User extends Authenticatable
 
     public function medicineClassification()
     {
-        return $this->belongsTo(MedicineClassification::class);
+        return $this->belongsToMany(MedicineClassification::class);
+    }
+
+    public function receivingManagement()
+    {
+        return $this->belongsToMany(ReceivingManagement::class);
+    }
+
+    public function sales()
+    {
+        return $this->belongsToMany(Sales::class);
+    }
+
+    public function salesItem()
+    {
+        return $this->belongsToMany(salesItem::class);
+    }
+
+    public function stockManagement()
+    {
+        return $this->belongsToMany(StockManagement::class);
+    }
+
+    public function supplier()
+    {
+        return $this->belongsToMany(Supplier::class);
     }
 
     /**

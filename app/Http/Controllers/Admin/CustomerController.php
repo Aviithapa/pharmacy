@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Customer\CustomerRepository;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -38,6 +39,7 @@ class CustomerController extends Controller
     {
         $this->authorize('store', $this->customerRepository->getModel());
         $data = $request->all();
+        $data['created_by'] = Auth::user()->id;
         try {
             $customer = $this->customerRepository->create($data);
             if ($customer == false) {

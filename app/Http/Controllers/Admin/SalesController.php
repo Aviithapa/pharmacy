@@ -47,8 +47,8 @@ class SalesController extends Controller
     public function create()
     {
 
-        $customers = $this->customerRepository->getAll();
-        $medicines = $this->medicineRepository->getAll();
+        $customers = $this->customerRepository->getAll()->where('created_by', Auth::user()->id);
+        $medicines = $this->medicineRepository->getAll()->where('created_by', Auth::user()->id);
         return view('admin.pages.sales.create', compact('customers', 'medicines'));
     }
 
@@ -56,8 +56,8 @@ class SalesController extends Controller
     public function edit($id)
     {
         $data = $this->salesRepository->findById($id);
-        $customers = $this->customerRepository->getAll();
-        $medicines = $this->medicineRepository->getAll();
+        $customers = $this->customerRepository->getAll()->where('created_by', Auth::user()->id);
+        $medicines = $this->medicineRepository->getAll()->where('created_by', Auth::user()->id);
         return view('admin.pages.sales.edit', compact('data', 'customers', 'medicines'));
     }
 

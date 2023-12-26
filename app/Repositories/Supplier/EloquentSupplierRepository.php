@@ -5,6 +5,7 @@ namespace App\Repositories\Supplier;
 use App\Models\Supplier;
 use App\Repositories\RepositoryImplementation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class EloquentSupplierRepository extends RepositoryImplementation implements SupplierRepository
@@ -27,6 +28,7 @@ class EloquentSupplierRepository extends RepositoryImplementation implements Sup
     {
         $limit = $request->get('limit', config('app.per_page'));
         return $this->model->newQuery()
+            ->where('created_by', Auth::user()->id)
             ->filter(new SupplierFilter($request))
             ->latest()
             ->paginate($limit);

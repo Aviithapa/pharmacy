@@ -6,6 +6,7 @@ namespace App\Repositories\Medicine;
 use App\Models\Medicine;
 use App\Repositories\RepositoryImplementation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class EloquentMedicineRepository extends RepositoryImplementation implements MedicineRepository
@@ -28,6 +29,7 @@ class EloquentMedicineRepository extends RepositoryImplementation implements Med
     {
         $limit = $request->get('limit', config('app.per_page'));
         return $this->model->newQuery()
+            ->where('created_by', Auth::user()->id)
             ->filter(new MedicineFilter($request))
             ->latest()
             ->paginate($limit);

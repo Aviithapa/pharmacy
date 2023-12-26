@@ -24,7 +24,8 @@ class StockManagement extends Model
         'price_per_unit',
         'total_price',
         'status',
-        'remaining_quantity'
+        'remaining_quantity',
+        'created_by',
     ];
 
 
@@ -36,5 +37,10 @@ class StockManagement extends Model
     public function medicine()
     {
         return $this->belongsTo(Medicine::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
     }
 }

@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name' => 'Admin User',
-                'email' => 'admin@pharmacy.com',
+                'email' => 'admin1@pharmacy.com',
                 'password' => Hash::make('Nepal@123'),
                 'status' => true,
                 'email_verified_at' => Carbon::now(),
@@ -29,7 +29,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('role_user')->insert([
-            ['role_id' => 1, 'user_id' => 1]
+            ['role_id' => 1, 'user_id' => 2]
         ]);
     }
 }

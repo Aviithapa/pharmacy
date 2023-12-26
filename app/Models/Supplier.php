@@ -19,6 +19,12 @@ class Supplier extends Model
         'email',
         'phone',
         'address',
-        'pan_number'
+        'pan_number',
+        'created_by',
     ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
 }

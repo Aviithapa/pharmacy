@@ -44,8 +44,8 @@ class ReceivingManagementController extends Controller
     public function create()
     {
         $this->authorize('create', $this->supplierRepository->getModel());
-        $suppliers = $this->supplierRepository->getAll();
-        $medicines = $this->medicineRepository->getAll();
+        $suppliers = $this->supplierRepository->getAll()->where('created_by', Auth::user()->id);
+        $medicines = $this->medicineRepository->getAll()->where('created_by', Auth::user()->id);
         return view('admin.pages.receiving.create', compact('suppliers', 'medicines'));
     }
 
@@ -53,8 +53,8 @@ class ReceivingManagementController extends Controller
     public function edit($id)
     {
         $data = $this->receivingRepository->findById($id);
-        $suppliers = $this->supplierRepository->getAll();
-        $medicines = $this->medicineRepository->getAll();
+        $suppliers = $this->supplierRepository->getAll()->where('created_by', Auth::user()->id);
+        $medicines = $this->medicineRepository->getAll()->where('created_by', Auth::user()->id);
         return view('admin.pages.receiving.edit', compact('data', 'suppliers', 'medicines'));
     }
 

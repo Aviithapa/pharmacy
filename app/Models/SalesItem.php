@@ -23,7 +23,9 @@ class SalesItem extends Model
         'total_amount',
         'discount_percentage',
         'return_quantity',
-        'status'
+        'status',
+        'created_by',
+
     ];
 
     public function sale()
@@ -34,5 +36,10 @@ class SalesItem extends Model
     public function stock()
     {
         return $this->belongsTo(StockManagement::class, 'stock_id', 'id');
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
     }
 }

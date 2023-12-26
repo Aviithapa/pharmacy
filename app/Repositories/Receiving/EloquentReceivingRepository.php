@@ -7,6 +7,7 @@ use App\Models\Receiving;
 use App\Models\ReceivingManagement;
 use App\Repositories\RepositoryImplementation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -30,6 +31,7 @@ class EloquentReceivingRepository extends RepositoryImplementation implements Re
     {
         $limit = $request->get('limit', config('app.per_page'));
         return $this->model->newQuery()
+            ->where('created_by', Auth::user()->id)
             ->filter(new ReceivingFilter($request))
             ->latest()
             ->paginate($limit);
@@ -38,6 +40,7 @@ class EloquentReceivingRepository extends RepositoryImplementation implements Re
     public function getDistinctColumnData($column)
     {
         return $this->model->select(DB::raw("$column as distinctData"))
+            ->where('created_by', Auth::user()->id)
             ->distinct()
             ->pluck('distinctData')
             ->toArray();

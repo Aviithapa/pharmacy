@@ -21,7 +21,9 @@ class Sales extends Model
         'discount_percentage',
         'return_quantity',
         'status',
-        'discount_amount'
+        'discount_amount',
+        'created_by',
+
     ];
 
     public function customer()
@@ -32,5 +34,10 @@ class Sales extends Model
     public function salesItem()
     {
         return $this->hasMany(SalesItem::class, 'sales_id', 'id');
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
     }
 }

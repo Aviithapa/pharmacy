@@ -17,6 +17,7 @@ class ReceivingManagement extends Model
         'supplier_id',
         'received_date',
         'total_amount',
+        'created_by',
     ];
 
 
@@ -28,5 +29,10 @@ class ReceivingManagement extends Model
     public function stock()
     {
         return $this->hasMany(StockManagement::class, 'receiving_id', 'id');
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
     }
 }
