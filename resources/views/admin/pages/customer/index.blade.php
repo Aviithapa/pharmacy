@@ -72,6 +72,7 @@
                                                             <th>Email</th>
                                                             <th>Phone Number</th>
                                                             <th>Buyed</th>
+                                                            <th>Joined At</th>
                                                             <th>Edit</th>
                                                         </tr>
                                                     </thead>
@@ -89,6 +90,9 @@
                                                             </td>
                                                             <td>
                                                               {{ $data->pan_number }}
+                                                            </td>
+                                                            <td>
+                                                             {{ Carbon\Carbon::parse($data->created_at)->format('Y-m-d') }} 
                                                             </td>
                                                             <td><a href="{{ route('customer.edit', ['customer' => $data->id]) }}"><span class="badge bg-info-subtle text-info">Edit</span></a>
                                                             {{-- <form id="delete-form-{{ $data->id }}" action="{{ route('medicine-classification.destroy', ['medicine_classification' => $data->id]) }}" method="POST" style="display: none;">

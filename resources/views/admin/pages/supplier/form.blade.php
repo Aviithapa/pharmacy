@@ -81,7 +81,7 @@
                                             </div>
                                              <div class="col-lg-6 col-md-6 col-sm-12"> 
                                                 <div class="mb-3">
-                                                    <label class="form-label" for="validationCustom01">Pan / Vat Number</label>
+                                                    <label class="form-label" for="validationCustom01">PAN / VAT Number</label>
                                                     <input type="text" class="form-control" id="validationCustom01"  name="pan_number" value="{{ isset($model) ? $model->pan_number : old('pan_number') }}">
                                                    @if( $errors->first('pan_number'))
                                                             <div class="alert alert-danger bg-transparent text-danger" role="alert">

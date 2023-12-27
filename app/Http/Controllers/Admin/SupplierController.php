@@ -7,6 +7,7 @@ use App\Http\Requests\Supplier\CreateSupplierRequest;
 use App\Repositories\Supplier\SupplierRepository;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SupplierController extends Controller
 {
@@ -41,6 +42,7 @@ class SupplierController extends Controller
         $this->authorize('store', $this->supplierRepository->getModel());
         $data = $request->all();
         try {
+            $data['created_by'] = Auth::user()->id;
             $supplier = $this->supplierRepository->create($data);
             if ($supplier == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
@@ -66,6 +68,7 @@ class SupplierController extends Controller
         $this->authorize('update', $this->supplierRepository->getModel());
         $data = $request->all();
         try {
+            $data['created_by'] = Auth::user()->id;
             $supplier = $this->supplierRepository->update($data, $id);
             if ($supplier == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');

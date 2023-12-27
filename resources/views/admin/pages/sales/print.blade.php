@@ -39,7 +39,7 @@
                                             <div class="col-sm-6">
                                                 <div class="float-end mt-3">
                                                     <p><b>Hello, {{ $data->customer->name }}</b></p>
-                                                    <p class="text-muted fs-13">Please find below a cost-breakdown for the recent work completed. Please make payment at your earliest convenience, and do not hesitate to contact me with any questions.</p>
+                                                    <p class="text-muted fs-13">Please find .</p>
                                                 </div>
             
                                             </div><!-- end col -->
