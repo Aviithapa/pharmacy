@@ -29,7 +29,7 @@ class EloquentMedicineRepository extends RepositoryImplementation implements Med
     {
         $limit = $request->get('limit', config('app.per_page'));
         return $this->model->newQuery()
-            ->where('created_by', Auth::user()->id)
+            // ->where('created_by', Auth::user()->id)
             ->filter(new MedicineFilter($request))
             ->latest()
             ->paginate($limit);

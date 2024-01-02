@@ -20,10 +20,10 @@
                                 </div>
                                 <div class="card-body">
                                        @if(isset($model))
-                                             <form method="POST" action="{{ route('dashboard.user.update', ["id" => $model->id]) }}">
+                                             <form method="POST" action="{{ route('user.update', ["user" => $model->id]) }}" enctype="multipart/form-data">
                                                  @method('PUT')
                                         @else
-                                            <form method="POST" action="{{ route('dashboard.user.store') }}">
+                                            <form method="POST" action="{{ route('user.store') }}" enctype="multipart/form-data">
                                         @endif
                                         @csrf
                               
@@ -83,14 +83,48 @@
                                                       @endif
                                                 </div>
                                             </div> 
+                                              <div class="form-group mb-3">
+                                                <label class="form-label" for="inputFile">Select Company logo:</label>
+                                               <input 
+                                                type="file" 
+                                                name="logo" 
+                                                id="inputFile"
+                                                multiple
+                                                class="form-control @error('logo') is-invalid @enderror">
+                                                 @if($errors->any())
+                                                         {{ $errors->first('logo') }}
+                                                      @endif
+                                            </div>  
+                                              <div class="form-group mb-3">
+                                                <label class="form-label" for="inputFile">Select Company Documents:</label>
+                                               <input 
+                                                type="file" 
+                                                name="documents[]" 
+                                                id="inputFile"
+                                                multiple
+                                                class="form-control @error('documents') is-invalid @enderror">
+                                                 @if($errors->any())
+                                                         {{ $errors->first('documents') }}
+                                                      @endif
+                                            </div>  
                                              
                                              
+                                             @if(isset($model->media))  
+                                                @foreach ($model->media as $media)
+                                                    <div class="col-lg-3 col-md-3 col-sm-6" style="position: relative;"> 
+                                                        <img src="{{ getImage($media->path) }}" style="height: 200px;"/>
+                                                        {{-- <a href="#" class="close-icon" data-toggle="modal" data-target="#confirmationModal{{ $media->id }}">
+                                                            <i class="bi-x-circle" style="color:red"></i>
+                                                        </a> --}}
+                                                    </div>
+                                            @endforeach  
+                                            @endif   
                                              
                                             
                                              
                                         </div>
                                             
-                                        <button class="btn btn-primary" type="submit">Submit form</button>
+                                        <button class="btn btn-primary" type="submit" style="margin-top: 10px; ">Submit form</button>
                                     </form>
 
                                 </div> <!-- end card-body-->

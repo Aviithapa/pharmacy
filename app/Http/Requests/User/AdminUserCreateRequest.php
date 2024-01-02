@@ -21,6 +21,9 @@ class AdminUserCreateRequest extends FormRequest
             'role' => ['required', 'string', new ValidRole],
             'position' => ['required', 'string'],
             'status' => ['required', 'boolean'],
+            'logo' => ['sometimes', 'required', 'image', 'mimes:jpeg,png,gif,jpg'],
+            'documents' => ['sometimes', 'required', 'array'],
+            'documents.*' => ['image', 'mimes:jpeg,png,gif, jpg'],
         ];
     }
 }

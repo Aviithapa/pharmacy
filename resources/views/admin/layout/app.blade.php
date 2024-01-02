@@ -17,6 +17,9 @@
             @case('admin')
                 @include('admin.sidebar.sidebar')
             @break
+            @case('super-admin')
+                @include('admin.sidebar.super-admin-sidebar')
+            @break
             @default
                 @include('admin.sidebar.default')
         @endswitch

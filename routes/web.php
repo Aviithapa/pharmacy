@@ -66,7 +66,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 
 
 Route::resource('/dashboard/medicine-classification', MedicineClassificationController::class)->middleware(['auth']);
-Route::resource('dashboard/user', UserController::class)->middleware(['auth']);
+Route::resource('/dashboard/user', UserController::class)->middleware(['auth']);
 Route::resource('/dashboard/supplier', SupplierController::class)->middleware(['auth']);
 Route::resource('/dashboard/medicine', MedicineController::class)->middleware(['auth']);
 Route::resource('/dashboard/stock', StockManagementController::class)->middleware(['auth']);

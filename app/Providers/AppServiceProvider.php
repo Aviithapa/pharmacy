@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Client\FileUpload\FileUploaderInterface;
+use App\Client\FileUpload\LocalFileUploader;
 use App\Repositories\Customer\CustomerRepository;
 use App\Repositories\Customer\EloquentCustomerRepository;
+use App\Repositories\Media\EloquentMediaRepository;
+use App\Repositories\Media\MediaRepository;
 use App\Repositories\Medicine\EloquentMedicineRepository;
 use App\Repositories\Medicine\MedicineRepository;
 use App\Repositories\MedicineClassification\EloquentMedicineClassificationRepository;
@@ -96,5 +100,12 @@ class AppServiceProvider extends ServiceProvider
             SalesItemRepository::class,
             EloquentSalesItemRepository::class
         );
+
+        $this->app->bind(
+            MediaRepository::class,
+            EloquentMediaRepository::class
+        );
+
+        $this->app->bind(FileUploaderInterface::class, LocalFileUploader::class);
     }
 }

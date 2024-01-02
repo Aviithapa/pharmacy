@@ -204,18 +204,19 @@
 
             $.ajax({
                 url: '/dashboard/stock/' + stockId,
-                method: 'PATCH',
+                method: 'POST',
                 data: {
+                    _method: 'PUT',
                     field: field,
                     value: value,
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    console.log(response);
+                    console.log(response, 'response');
                       
                 },
                 error: function(error) {
-                    console.log(error)
+                    console.log(error, 'error')
                      $.toast({
                             heading: 'Success',
                             text: name + ' has been updated successfully',

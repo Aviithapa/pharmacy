@@ -21,7 +21,7 @@
 
                          <div class="card">
                                
-                                    <form action="{{  route("dashboard.user.index") }}"  method="GET" novalidate>
+                                    <form action="{{  route("user.index") }}"  method="GET" novalidate>
                                         <div class="row" style="padding: 20px 10px 0px 10px;"> 
                                             
                                             <div class="col-lg-4 col-md-4 col-sm-6"> 
@@ -63,7 +63,7 @@
                                     <div class="card-body p-0">
                                         <div class="p-3">
                                             <div class="card-widgets">
-                                                <a href="{{ route('dashboard.user.create') }}" class="btn btn-primary" style="color: white;">Create New User</a>
+                                                <a href="{{ route('user.create') }}" class="btn btn-primary" style="color: white;">Create New User</a>
                                             </div>
                                             <h5 class="header-title mb-0">User List</h5>
                                         </div>
@@ -79,7 +79,7 @@
                                                             <th>Email</th>
                                                             <th>Role</th>
                                                             <th>Status</th>
-                                                            <th>Token</th>
+                                                            <th>Password</th>
                                                             <th>Edit</th>
                                                         </tr>
                                                     </thead>
@@ -93,15 +93,8 @@
                                                             <td>
                                                                <span class="red-square" style="width: 20px; height: 10px; background-color: {{ $user->status ? 'green' : 'red' }}; display: inline-block;"></span>
                                                             </td>
-                                                            <td>{{ $user->token }}</td>
-                                                            <td><a href="{{ route('dashboard.user.edit', ['id' => $user->id]) }}"><span class="badge bg-info-subtle text-info">Edit</span></a>
-                                                            {{-- <form id="delete-form-{{ $exam->id }}" action="{{ route('dashboard.exam.destroy', ['id' => $exam->id]) }}" method="POST" style="display: none;">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                            </form>
-                                                            <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $exam->id }}').submit();">
-                                                                <span class="badge bg-danger-subtle text-danger">Delete</span>
-                                                            </a> --}}
+                                                            <td>{{ $user->reference }}</td>
+                                                            <td><a href="{{ route('user.edit', ['user' => $user->id]) }}"><span class="badge bg-info-subtle text-info">Edit</span></a>
                                                             </td>
 
                                                         </tr>

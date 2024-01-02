@@ -2,30 +2,42 @@
 
 namespace App\Http\Controllers\Admin\User;
 
+use App\Client\FileUpload\FileUploaderInterface;
 use App\Filters\UserFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\ApiResponser;
 use App\Http\Requests\User\AdminUserCreateRequest;
 use App\Http\Requests\User\UserUpdateRequest;
 use App\Mail\AdminCreateUser;
+use App\Models\Medias;
 use App\Models\Role;
 use App\Models\User;
+use App\Repositories\Media\MediaRepository;
 use App\Repositories\User\UserRepository;
 use App\Services\User\UserGetter;
 use App\Services\User\UserUpdater;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
 
     protected $userRepository, $userFilter;
+    protected $fileUploader;
+    protected $mediaRepository;
 
-    public function __construct(UserRepository $userRepository, UserFilter $userFilter)
-    {
+    public function __construct(
+        UserRepository $userRepository,
+        UserFilter $userFilter,
+        FileUploaderInterface $fileUploader,
+        MediaRepository $mediaRepository,
+    ) {
         $this->userRepository = $userRepository;
         $this->userFilter = $userFilter;
+        $this->fileUploader = $fileUploader;
+        $this->mediaRepository = $mediaRepository;
     }
 
     public function index(Request $request)
@@ -49,27 +61,77 @@ class UserController extends Controller
     public function store(AdminUserCreateRequest $request)
     {
         $this->authorize('store', $this->userRepository->getModel());
-        $data = $request->all();
+
         try {
-            $data['token'] = str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT);
-            $role = Role::where('name', $data['role'])->first();
-            $data['password'] = $this->generateRandomAlphabeticString(8);
-            $data['reference'] = $data['password'];
-            $data['password'] = bcrypt($data['password']);
-            $data['phone_number'] = $data['token'];
-            $user = $this->userRepository->create($data);
-            if ($user == false) {
-                session()->flash('danger', 'Oops! Something went wrong.');
-                return redirect()->back()->withInput();
-            }
-            $user->roles()->attach($role);
-            Mail::to($user->email)->send(new AdminCreateUser($user));
+            DB::beginTransaction();
+
+            $data = $this->prepareUserData($request);
+            $user = $this->createUser($data);
+
+            $this->uploadLogoAndDocuments($data, $user);
+
+            $this->attachRoleAndSendEmail($user, $data);
+
+            DB::commit();
+
             session()->flash('success', 'Account has been created successfully.');
-            return redirect()->route('dashboard.user.index');
+            return redirect()->route('user.index');
         } catch (Exception $e) {
+            DB::rollBack();
             session()->flash('danger', 'Oops! Something went wrong.');
             return redirect()->back()->withInput();
         }
+    }
+
+    private function prepareUserData(AdminUserCreateRequest $request)
+    {
+        $data = $request->all();
+        $data['token'] = str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT);
+        $data['password'] = $this->generateRandomAlphabeticString(8);
+        $data['reference'] = $data['password'];
+        $data['password'] = bcrypt($data['password']);
+        $data['phone_number'] = $data['token'];
+
+        return $data;
+    }
+
+    private function createUser(array $data)
+    {
+        $user = $this->userRepository->create($data);
+
+        if ($user === false) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            throw new Exception('User creation failed.');
+        }
+
+        return $user;
+    }
+
+    private function uploadLogoAndDocuments(array $data, $user)
+    {
+        if (isset($data['logo'])) {
+            $this->uploadMedia($data['logo'], $user, Medias::TYPE_LOGO);
+        }
+
+        if (isset($data['documents'])) {
+            foreach ($data['documents'] as $document) {
+                $this->uploadMedia($document, $user, Medias::TYPE_COMPANY_DOCUMENTS);
+            }
+        }
+    }
+
+    private function uploadMedia($file, $user, $mediaType)
+    {
+        $response = $this->fileUploader->upload($file, $mediaType);
+        $response['user_id'] = $user->id;
+        $this->mediaRepository->create($response);
+    }
+
+    private function attachRoleAndSendEmail($user, $data)
+    {
+        $role = Role::where('name', $data['role'])->first();
+        $user->roles()->attach($role);
+        // Mail::to($user->email)->send(new AdminCreateUser($user));
     }
 
     public function edit($id)
@@ -97,6 +159,7 @@ class UserController extends Controller
         try {
             $role = Role::where('name', $data['role'])->first();
             $user = $this->userRepository->update($data, $id);
+            $this->uploadLogoAndDocuments($data, $user);
             if ($user == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();

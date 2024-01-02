@@ -63,9 +63,10 @@ if (!function_exists('getImage')) {
      * @param null $type
      * @return string
      */
+
     function getImage($path)
     {
-        return  Storage::url('documents/' . $path);
+        return  Storage::url('public/'  . $path);
     }
 }
 

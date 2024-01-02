@@ -29,7 +29,6 @@ class EloquentMedicineClassificationRepository extends RepositoryImplementation 
     {
         $limit = $request->get('limit', config('app.per_page'));
         return $this->model->newQuery()
-            ->where('created_by', Auth::user()->id)
             ->filter(new MedicineClassificationFilter($request))
             ->latest()
             ->paginate($limit);

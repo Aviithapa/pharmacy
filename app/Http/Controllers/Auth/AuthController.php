@@ -20,7 +20,7 @@ class AuthController extends Controller
 
         if (Auth::check()) {
             if (Auth::user()->status == 1) {
-                if (Auth::user()->mainRole()->name === 'admin') {
+                if (Auth::user()->mainRole()->name === 'admin' || Auth::user()->mainRole()->name === 'super-admin') {
                     return redirect()->intended('dashboard');
                 } else {
                     Auth::logout();

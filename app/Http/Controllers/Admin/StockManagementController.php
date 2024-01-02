@@ -70,6 +70,12 @@ class StockManagementController extends Controller
         $data = $request->all();
         try {
             $data['created_by'] = Auth::user()->id;
+            if ($data['field'] === 'quantity') {
+                $stock = $this->stockRepository->findById($id);
+                $quantity = $data['value'] - $stock->quantity;
+                $q['remaining_quantity'] =  $stock->remaining_quantity  +  $quantity;
+                $this->stockRepository->update($q, $id);
+            }
             $stock = $this->stockRepository->update([$data['field'] => $data['value']], $id);
             if ($stock == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
