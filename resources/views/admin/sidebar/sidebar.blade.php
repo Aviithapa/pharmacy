@@ -190,6 +190,14 @@
                             <span> Customer </span>
                         </a>
                     </li>
+                      <li class="side-nav-item">
+                        <a href="{{ route('company-details.index') }}" class="side-nav-link">
+                            <i class="bi-person"></i>
+                            <span> Company Details </span>
+                        </a>
+                    </li>
+
+                    
 
                   
                 </ul>

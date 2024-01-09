@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegistrationController;
+use App\Http\Controllers\CompanyDetail\CompanyDetailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -77,3 +78,5 @@ Route::resource('/dashboard/customer', CustomerController::class)->middleware(['
 Route::resource('/dashboard/sales', SalesController::class)->middleware(['auth']);
 Route::put('/dashboard/sales/quantity/update/{id}', [SalesController::class, 'updateQuantity'])->middleware(['auth']);
 Route::get('/dashboard/sales/print/{id}', [SalesController::class, 'print'])->middleware(['auth'])->name('sales.print');
+
+Route::resource('/dashboard/company-details', CompanyDetailController::class)->middleware(['auth'])->only('index', 'store');

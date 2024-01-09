@@ -203,6 +203,7 @@ class SalesController extends Controller
     public function print($id)
     {
         $data = $this->salesRepository->findById($id);
-        return view('admin.pages.sales.print', compact('data'));
+        $companyDetails = Auth::user()->companyDetails;
+        return view('admin.pages.sales.print', compact('data', 'companyDetails'));
     }
 }

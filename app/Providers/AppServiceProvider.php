@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Client\FileUpload\FileUploaderInterface;
 use App\Client\FileUpload\LocalFileUploader;
+use App\Repositories\CompanyDetail\CompanyDetailRepository;
+use App\Repositories\CompanyDetail\EloquentCompanyDetailRepository;
 use App\Repositories\Customer\CustomerRepository;
 use App\Repositories\Customer\EloquentCustomerRepository;
 use App\Repositories\Media\EloquentMediaRepository;
@@ -106,6 +108,14 @@ class AppServiceProvider extends ServiceProvider
             EloquentMediaRepository::class
         );
 
-        $this->app->bind(FileUploaderInterface::class, LocalFileUploader::class);
+        $this->app->bind(
+            FileUploaderInterface::class,
+            LocalFileUploader::class
+        );
+
+        $this->app->bind(
+            CompanyDetailRepository::class,
+            EloquentCompanyDetailRepository::class
+        );
     }
 }

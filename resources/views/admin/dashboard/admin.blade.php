@@ -43,7 +43,7 @@
                                             <i class="widget-icon bi-receipt"></i>
                                         </div>
                                         <h6 class="text-uppercase mt-0" title="Customers">Todays Sales</h6>
-                                        <h2 class="my-2">Rs. {{$todaySalesWithDiscount }}</h2>
+                                        <h2 class="my-2">Rs. {{ isset($todaySalesWithDiscount) ? $todaySaslesWithDiscount : '0' }} </h2>
                                         <p class="mb-0">
                                             <span class="badge bg-white bg-opacity-10 me-1">2.97%</span>
                                             <span class="text-nowrap">Since last month</span>
@@ -61,7 +61,7 @@
                                             <i class=" widget-icon bi-receipt"></i>
                                         </div>
                                         <h6 class="text-uppercase mt-0" title="Customers">This Month Sale</h6>
-                                        <h2 class="my-2">Rs. {{  $monthlySalesWithDiscount }}</h2>
+                                        <h2 class="my-2">Rs. {{ isset(  $monthlySalesWithDiscount ) ?   $monthlySalesWithDiscount : '0' }}</h2>
                                         <p class="mb-0">
                                             <span class="badge bg-white bg-opacity-10 me-1">{{ $percentageDifference }}%</span>
                                             <span class="text-nowrap">Since last month</span>
@@ -77,7 +77,7 @@
                                             <i class=" widget-icon bi-receipt"></i>
                                         </div>
                                         <h6 class="text-uppercase mt-0" title="Customers">Near to Expire</h6>
-                                        <h2 class="my-2"> {{  $nearToExpireMedicinesCount }}</h2>
+                                        <h2 class="my-2"> {{  $nearToExpireMedicinesCount  }}</h2>
                                         <p class="mb-0">
                                             <span class="badge bg-white bg-opacity-10 me-1">{{ $percentageDifference }}%</span>
                                             <span class="text-nowrap">Since last month</span>
